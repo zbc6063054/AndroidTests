@@ -3,5 +3,14 @@
 
     <string name="hello">Hello World, ApiDemoTestActivity!</string>
     <string name="app_name">ApiDemoTest</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="translucent_background">Translucent background\n I just need a little more strings</string>
+    <string name="randomize">Randomize</string>
+    <string name="set_wallpaper">Set Wallpaper</string>
+    <string name="choose_wallpaper">Choose Wallpaper</string>
+    <string name="custom_title_left">Left is best</string>
+    <string name="custom_title_right">Right is always right</string>
+    <string name="custom_title_left_button">Change Left</string>
+    <string name="custom_title_right_button">Change Right</string>
 
 </resources>

@@ -1,6 +1,9 @@
 package com.android.test.apidemo;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,22 +37,21 @@ public class ApiDemos extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		super.onListItemClick(l, v, position, id);
+		
 		Map map = (Map) l.getItemAtPosition(position);
 		Intent intent = (Intent) map.get("intent");
 		if (intent == null) {
-			Toast.makeText(this, "Intent null", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		startActivity(intent);
-
 	}
 
 	protected List getData(String prefix) {
 		List<Map> myData = new ArrayList<Map>();
 
 		String[] prefixPath;
+		
 		if (prefix == "") {
 			prefixPath = null;
 		} else {
@@ -76,34 +78,52 @@ public class ApiDemos extends ListActivity {
 				String[] labelPath = label.split("/");
 				String nextlabel = prefixPath == null ? labelPath[0]
 						: labelPath[prefixPath.length];
-
-				Map<String, Object> map = new HashMap<String, Object>();
-				Intent intent2 = null;
+				
 				if ((prefixPath == null ? 0 : prefixPath.length) == labelPath.length - 1) {
-					intent2 = new Intent();
-					intent2.setClassName(
+					addItem(myData, nextlabel, activityIntent(
 							info.activityInfo.applicationInfo.packageName,
-							info.activityInfo.name);
+							info.activityInfo.name));
 				} else {
 					if (entries.get(nextlabel) == null) {
 						entries.put(nextlabel, true);
-						intent2 = new Intent(this, this.getClass());
-						intent2.putExtra("com.android.test.apis.Path",
-								prefix == "" ? nextlabel : prefix + '/'
-										+ nextlabel);
+						addItem(myData, nextlabel, browserIntent(prefix == "" ? nextlabel
+								: prefix + '/' + nextlabel));
 					}
 				}
-
-				map.put("title", nextlabel);
-				map.put("intent", intent2);
-				myData.add(map);
 			}
-
 		}
-
+		Collections.sort(myData, sDispalyNameComparator);
+		
 		return myData;
 	}
 
+	private static final Comparator<Map> sDispalyNameComparator=new Comparator<Map>() {
+		private final Collator   collator = Collator.getInstance();
+		@Override
+		public int compare(Map map1, Map map2) {
+			return collator.compare(map1.get("title"), map2.get("title"));
+		}
+	};
+	
+	protected Intent activityIntent(String pkg, String componentName) {
+		Intent intent = new Intent();
+		intent.setClassName(pkg, componentName);
+		return intent;
+	}
+
+	protected Intent browserIntent(String path) {
+		Intent result = new Intent(this, ApiDemos.class);
+		result.putExtra("com.android.test.apis.Path", path);
+		return result;
+	}
+
+	protected void addItem(List<Map> data,String label,Intent intent){
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("title", label);
+		map.put("intent", intent);
+		data.add(map);
+	}
+	
 	public static final String CATEGORY_TEST = "com.mytest";
 
 }

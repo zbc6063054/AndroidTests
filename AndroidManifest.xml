@@ -5,6 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -25,6 +26,64 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:label="App/Activity/HelloWorld"
+            android:name=".app.HelloWorld" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mytest" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:label="App/Activity/WallPaper"
+            android:name=".app.WallPaperActivity" 
+            android:theme="@style/Theme.Wallpaper">
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mytest" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:label="App/Activity/Tanslucent"
+            android:name=".app.TranslucentActivity" 
+            android:theme="@style/Theme.Translucent">
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mytest" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:label="App/Activity/TanslucentBlur"
+            android:name=".app.TranslucentBlurActivity" 
+            android:theme="@style/Theme.Transparent">
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mytest" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:label="App/Activity/SetWallPaper"
+            android:name=".app.SetWallPaperActivity" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mytest" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:label="App/Activity/Custom Title"
+            android:name=".app.CustomTitle" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mytest" />
+            </intent-filter>
+        </activity>
+        
     </application>
 
 </manifest>
